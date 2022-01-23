@@ -10,6 +10,7 @@ export const logIn = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState: {
+      allusers: [],
       user: {
         loggedin: false,
         id: 'sarahedo',
@@ -21,15 +22,6 @@ const userSlice = createSlice({
       status: null,
     },
     reducers: {
-      // logIn: (state, action) => {
-      //   console.log('Entered LogIn!');
-      //   var userData = _getUsers();
-      //   var id = action.payload;
-      //   console.log('User id ='+ id);
-      //   console.log(userData);
-      //   state.user.loggedin = true;
-      //   // state.user.email = action.payload;
-      // },
       setId: (state, action) => {
         state.user.id = action.payload;
       },
@@ -47,6 +39,7 @@ const userSlice = createSlice({
     extraReducers: {
       [logIn.fulfilled]: (state, { payload }) => {
         console.log('Entered LogIn!');
+        state.allusers = payload;
         var userData = payload[state.user.id];
         console.log('User id ='+ state.user.id);
         console.log(userData);
@@ -63,5 +56,7 @@ const userSlice = createSlice({
   
   export const selectUser = (state) => state.user.user;
   
+  export const selectAllUsers = (state) => state.user.allusers;
+
   export default userSlice.reducer;
   

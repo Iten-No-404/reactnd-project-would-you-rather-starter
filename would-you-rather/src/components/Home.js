@@ -12,32 +12,29 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogInPrompt from './LogIn';
-import { selectUser } from '../states/UserSlice';
+import { selectUser, selectAllUsers } from '../states/UserSlice';
+import { getQuestions, selectQuestions } from '../states/QuestionsSlice';
 const theme = createTheme();
 
 
 function Home() {
     const title = 'It works !!!!!';
     const [showAnswered, setShowAnswered] = useState(false);
-    // const [blogName, setBlogNameh] = useState('');
-    // const [age, setAgeh] = useState('');
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
-    // const step = useSelector(selectStep);
+    const allUsers = useSelector(selectAllUsers);
+    const questions = useSelector(selectQuestions);
     // const message = useSelector(selectStatusMessage);
-    // useEffect(() => {
-    //   dispatch(setStatusMessage());
-    // }, []);
-    // if (user.loggedIn === true) {
-    //   window.location.replace('/dashboard');
-    // }
+    useEffect(() => {
+      dispatch(getQuestions());
+    }, []);
     return ( 
     <ThemeProvider theme={theme}>
       { user.loggedin === false ? (
         <LogInPrompt />
       ) : 
       (
-        <Container sx={{ width: '100%' }} >
+        <Container sx={{ width: 500 }} >
         <CssBaseline />
         <GlobalStyles
           styles={{
@@ -52,45 +49,178 @@ function Home() {
         />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             color: '#FFFFFF',
           }}
         >
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          {/* <Link to="/" style={{ textDecoration: 'none' }}>
             <Typography component="h2" color="black" fontSize="4.5rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold' }}>
               {title}
             </Typography>
-          </Link>
-        </Box>
-        {/* { message === '' ? (<Box />)
-          : (
-            <Box
+          </Link> */}
+          <ButtonGroup 
+          fullWidth
+          >
+            <Button
+                      disableRipple
+                      variant="contained"
+                      size="large"
+                      font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
+                      style={{
+                      backgroundColor: '#EEEEEE', color: showAnswered ? '#000000' :'#00b8ff', fontWeight: 'bold', textTransform: 'none',
+                      }}
+                      sx={{
+                      spacing: 8, width: 300
+                      }}
+                      onClick={() => { setShowAnswered(false) }}
+            >Unanswered Questions</Button>
+            <Button
+                      disableRipple
+                      variant="contained"
+                      size="large"
+                      font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
+                      style={{
+                      backgroundColor: '#EEEEEE', color: showAnswered ? '#00b8ff': '#000000' , fontWeight: 'bold', textTransform: 'none',
+                      }}
+                      sx={{
+                      spacing: 8, width: 300
+                      }}
+                      onClick={() => { setShowAnswered(true) }}
+            >Answered Questions</Button>
+          </ButtonGroup>
+          { questions !== null && showAnswered === false && Object.keys(questions).map( (questionid) => (
+            Object.keys(user.answers).includes(questionid) === false && (          <Box
               sx={{
-                borderRadius: 1,
-                marginBottom: 1.5,
-                display: 'flex',
-                flexDirection: 'column',
+                marginY: 2,
                 alignItems: 'center',
-                color: '#FFFFFF',
-                padding: '14px 15px',
-                backgroundColor: '#00000040',
-                textAlign: 'center',
-                fontSize: '0.875rem',
-                font: '"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;',
+                color: '#000000',
+                backgroundColor: '#00D7B3',
+                borderRadius: 2,
+                padding: 2,
+                width: '100%',
               }}
             >
-              <Typography
-                component="h2"
-                fontSize="0.875rem"
-                font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;'
+            <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold', marginRight: 4 }}>
+              {allUsers[questions[questionid].author].name + ' asks:'}
+            </Typography>
+            <Divider></Divider>
+            <Box
+              sx={{
+                marginTop: 2,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                color: '#FFFFFF',
+              }}
+            >
+              <img width="100" height="100" alt="avatar" src={allUsers[questions[questionid].author].avatarURL} ></img>
+              <Divider orientation="vertical" flexItem sx={{ marginX: 2}}/>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  margin: 1,
+                }}
               >
-                {message}
-              </Typography>
+              <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold' }}>
+              Would you rather
+            </Typography>
+              <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;'>
+              {  '...'+ questions[questionid].optionOne.text.substring(0,questions[questionid].optionOne.text.length/2) + '...'}
+            </Typography>
+            <Link to={"/questions/"+questionid} style={{ textDecoration: 'none', width: '100%' }}>
+        <Button
+          fullWidth
+          disableRipple
+          variant="contained"
+          size="large"
+          font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
+          style={{
+            backgroundColor: '#00D4FF', color: '#FFFFFF', fontWeight: 'bold', textTransform: 'none',
+          }}
+          sx={{
+            Mt: 1.5, mr: 1, ml: 1, mb: 1,
+          }}
+          type="submit"
+        >
+          View Poll
+        </Button>
+      </Link>
             </Box>
-          )} */}
+              </Box>
+            </Box>)
+          )
+          )}
+                    { questions !== null && showAnswered === true && Object.keys(questions).map( (questionid) => (
+            Object.keys(user.answers).includes(questionid) === true && (          <Box
+              sx={{
+                marginY: 2,
+                alignItems: 'center',
+                color: '#000000',
+                backgroundColor: '#00D7B3',
+                borderRadius: 2,
+                padding: 2,
+                width: '100%',
+              }}
+            >
+            <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold', marginRight: 4 }}>
+              {allUsers[questions[questionid].author].name + ' asks:'}
+            </Typography>
+            <Divider></Divider>
+            <Box
+              sx={{
+                marginTop: 2,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                color: '#FFFFFF',
+              }}
+            >
+              <img width="100" height="100" alt="avatar" src={allUsers[questions[questionid].author].avatarURL} ></img>
+              <Divider orientation="vertical" flexItem sx={{ marginX: 2}}/>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  margin: 1,
+                }}
+              >
+              <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold' }}>
+              Would you rather
+            </Typography>
+              <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;'>
+              {  '...'+ questions[questionid].optionOne.text.substring(0,questions[questionid].optionOne.text.length/2) + '...'}
+            </Typography>
+            <Link to={"/questions/"+questionid} style={{ textDecoration: 'none', width: '100%' }}>
+        <Button
+          fullWidth
+          disableRipple
+          variant="contained"
+          size="large"
+          font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
+          style={{
+            backgroundColor: '#00D4FF', color: '#FFFFFF', fontWeight: 'bold', textTransform: 'none',
+          }}
+          sx={{
+            Mt: 1.5, mr: 1, ml: 1, mb: 1,
+          }}
+          type="submit"
+        >
+          View Poll
+        </Button>
+      </Link>
+            </Box>
+              </Box>
+            </Box>)
+          )
+          )}
+        </Box>
+
       </Container>)
       }
     </ThemeProvider>

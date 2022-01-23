@@ -6,7 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { logOut, selectUser } from '../states/UserSlice';
 const theme = createTheme();
@@ -63,7 +62,7 @@ function Navigation() {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center', 
-              marginLeft: 25,
+              marginLeft: 50,
               }}>
               <Typography component="h2" color="white" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold' }}>
               {'Hello, '+ user.name}
