@@ -25,6 +25,13 @@ const userSlice = createSlice({
       setId: (state, action) => {
         state.user.id = action.payload;
       },
+      addAnswer: (state, action) => {
+        state.user.answers = 
+        {
+          ...state.user.answers ,
+          [action.payload.qid]: action.payload.answer
+        }
+      },
       logOut: (state) => {
         state.user = {
           loggedin: false,
@@ -52,7 +59,7 @@ const userSlice = createSlice({
     }
 });
 
-  export const { setId, logOut } = userSlice.actions;
+  export const { setId, addAnswer, logOut } = userSlice.actions;
   
   export const selectUser = (state) => state.user.user;
   

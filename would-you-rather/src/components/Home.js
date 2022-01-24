@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogInPrompt from './LogIn';
 import { selectUser, selectAllUsers } from '../states/UserSlice';
@@ -18,23 +17,26 @@ const theme = createTheme();
 
 
 function Home() {
-    const title = 'It works !!!!!';
     const [showAnswered, setShowAnswered] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const allUsers = useSelector(selectAllUsers);
     const questions = useSelector(selectQuestions);
-    // const message = useSelector(selectStatusMessage);
     useEffect(() => {
       dispatch(getQuestions());
-    }, []);
+    }, [dispatch]);
+    useEffect(() => {
+      if(user.loggedin === false){
+        setShowAnswered(false);
+      }
+    }, [user.loggedin]);
     return ( 
     <ThemeProvider theme={theme}>
       { user.loggedin === false ? (
         <LogInPrompt />
       ) : 
       (
-        <Container sx={{ width: 500 }} >
+        <Container sx={{ width: 600 }} >
         <CssBaseline />
         <GlobalStyles
           styles={{
@@ -56,11 +58,6 @@ function Home() {
             color: '#FFFFFF',
           }}
         >
-          {/* <Link to="/" style={{ textDecoration: 'none' }}>
-            <Typography component="h2" color="black" fontSize="4.5rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold' }}>
-              {title}
-            </Typography>
-          </Link> */}
           <ButtonGroup 
           fullWidth
           >
@@ -92,7 +89,9 @@ function Home() {
             >Answered Questions</Button>
           </ButtonGroup>
           { questions !== null && showAnswered === false && Object.keys(questions).map( (questionid) => (
-            Object.keys(user.answers).includes(questionid) === false && (          <Box
+            Object.keys(user.answers).includes(questionid) === false && (          
+            <Box
+              key={questionid}
               sx={{
                 marginY: 2,
                 alignItems: 'center',
@@ -140,7 +139,7 @@ function Home() {
           size="large"
           font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
           style={{
-            backgroundColor: '#00D4FF', color: '#FFFFFF', fontWeight: 'bold', textTransform: 'none',
+            backgroundColor: '#FFFFFF', color: '#00D4FF', fontWeight: 'bold', textTransform: 'none',
           }}
           sx={{
             Mt: 1.5, mr: 1, ml: 1, mb: 1,
@@ -155,8 +154,10 @@ function Home() {
             </Box>)
           )
           )}
-                    { questions !== null && showAnswered === true && Object.keys(questions).map( (questionid) => (
-            Object.keys(user.answers).includes(questionid) === true && (          <Box
+          { questions !== null && showAnswered === true && Object.keys(questions).map( (questionid) => (
+            Object.keys(user.answers).includes(questionid) === true && (          
+            <Box
+            key={questionid}
               sx={{
                 marginY: 2,
                 alignItems: 'center',
@@ -204,7 +205,7 @@ function Home() {
           size="large"
           font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
           style={{
-            backgroundColor: '#00D4FF', color: '#FFFFFF', fontWeight: 'bold', textTransform: 'none',
+            backgroundColor: '#FFFFFF', color: '#00D4FF', fontWeight: 'bold', textTransform: 'none',
           }}
           sx={{
             Mt: 1.5, mr: 1, ml: 1, mb: 1,

@@ -14,10 +14,10 @@ function App() {
     <Router>
       <Navigation />
     <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/add" element={<AddQuestion />} />
-      <Route exact path="/leaderboard" element={<Leaderboard />} />
-      <Route exact path="/questions/:question_id" element={<PollResults />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/add" element={<AddQuestion />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/questions/:question_id" element={<PollResults />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   </Router>
