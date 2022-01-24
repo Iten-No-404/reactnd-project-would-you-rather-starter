@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogInPrompt from './LogIn';
-import { selectUser, selectAllUsers } from '../states/UserSlice';
+import { logIn, selectUser, selectAllUsers } from '../states/UserSlice';
 import { getQuestions, selectQuestions } from '../states/QuestionsSlice';
 const theme = createTheme();
 
@@ -24,6 +24,7 @@ function Home() {
     const questions = useSelector(selectQuestions);
     useEffect(() => {
       dispatch(getQuestions());
+      dispatch(logIn());
     }, [dispatch]);
     useEffect(() => {
       if(user.loggedin === false){
@@ -96,7 +97,7 @@ function Home() {
                 marginY: 2,
                 alignItems: 'center',
                 color: '#000000',
-                backgroundColor: '#00D7B3',
+                backgroundColor: '#00D4FF',
                 borderRadius: 2,
                 padding: 2,
                 width: '100%',
@@ -129,7 +130,7 @@ function Home() {
               Would you rather
             </Typography>
               <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;'>
-              {  '...'+ questions[questionid].optionOne.text.substring(0,questions[questionid].optionOne.text.length/2) + '...'}
+              {  '...'+ questions[questionid].optionOne.text.substring(0,Math.min(15,questions[questionid].optionOne.text.length)) + '...'}
             </Typography>
             <Link to={"/questions/"+questionid} style={{ textDecoration: 'none', width: '100%' }}>
         <Button
@@ -162,7 +163,7 @@ function Home() {
                 marginY: 2,
                 alignItems: 'center',
                 color: '#000000',
-                backgroundColor: '#00D7B3',
+                backgroundColor: '#00D4FF',
                 borderRadius: 2,
                 padding: 2,
                 width: '100%',
@@ -195,7 +196,7 @@ function Home() {
               Would you rather
             </Typography>
               <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;'>
-              {  '...'+ questions[questionid].optionOne.text.substring(0,questions[questionid].optionOne.text.length/2) + '...'}
+              {  '...'+ questions[questionid].optionOne.text.substring(0,Math.min(15,questions[questionid].optionOne.text.length)) + '...'}
             </Typography>
             <Link to={"/questions/"+questionid} style={{ textDecoration: 'none', width: '100%' }}>
         <Button

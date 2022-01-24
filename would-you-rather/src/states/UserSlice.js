@@ -10,7 +10,7 @@ export const logIn = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-      allusers: [],
+      allusers: {},
       user: {
         loggedin: false,
         id: 'sarahedo',
@@ -46,7 +46,14 @@ const userSlice = createSlice({
     extraReducers: {
       [logIn.fulfilled]: (state, { payload }) => {
         console.log('Entered LogIn!');
-        state.allusers = payload;
+        // To sort users descendingly by sum of questions asked and answered:
+        var usersHolder = {};
+        Object.keys(payload).sort(function(a, b){
+            return (payload[b].questions.length + Object.keys(payload[b].answers).length) - (payload[a].questions.length + Object.keys(payload[a].answers).length);
+        }).forEach(function(key) {
+            usersHolder[key] = payload[key];
+        });        
+        state.allusers = usersHolder;
         var userData = payload[state.user.id];
         console.log('User id ='+ state.user.id);
         console.log(userData);

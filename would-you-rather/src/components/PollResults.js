@@ -18,7 +18,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogInPrompt from './LogIn';
 import NotFound from './NotFound';
-import { addAnswer, selectUser, selectAllUsers } from '../states/UserSlice';
+import { logIn, addAnswer, selectUser, selectAllUsers } from '../states/UserSlice';
 import { getQuestions, answerQuestion, selectQuestions } from '../states/QuestionsSlice';
 const theme = createTheme();
 
@@ -30,6 +30,7 @@ function PollResults() {
     const questions = useSelector(selectQuestions);
     useEffect(() => {
         dispatch(getQuestions());
+        dispatch(logIn());
       }, [dispatch]);
     const questionid = params.question_id;
     // const optionOne = questions[questionid].optionOne;
@@ -73,7 +74,7 @@ function PollResults() {
                   marginY: 2,
                   alignItems: 'center',
                   color: '#000000',
-                  backgroundColor: '#00D7B3',
+                  backgroundColor: '#00D4FF',
                   borderRadius: 2,
                   padding: 2,
                   width: '100%',
@@ -159,7 +160,7 @@ function PollResults() {
                   marginY: 2,
                   alignItems: 'center',
                   color: '#000000',
-                  backgroundColor: '#00D7B3',
+                  backgroundColor: '#00D4FF',
                   borderRadius: 2,
                   padding: 2,
                   width: '100%',
