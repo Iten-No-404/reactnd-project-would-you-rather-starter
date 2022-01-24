@@ -208,6 +208,9 @@ function PollResults() {
                 { questions[questionid].optionOne.votes.includes(user.id) && <CheckIcon/>}
               </Typography>
               <CircularProgressWithLabel sx={{display: 'block'}} value={(questions[questionid].optionOne.votes.length + questions[questionid].optionTwo.votes.length === 0) ? 50 : (questions[questionid].optionOne.votes.length * 100 / (questions[questionid].optionOne.votes.length + questions[questionid].optionTwo.votes.length))} />
+              <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ m: 1}}>
+                { questions[questionid].optionOne.votes.length + ' out of ' + (questions[questionid].optionOne.votes.length + questions[questionid].optionTwo.votes.length) + ' votes'}
+              </Typography>
               </Box>
               <Box
                   sx={{
@@ -226,6 +229,9 @@ function PollResults() {
                 { questions[questionid].optionTwo.votes.includes(user.id) && <CheckIcon/>}
               </Typography>
               <CircularProgressWithLabel sx={{display: 'block'}} value={(questions[questionid].optionOne.votes.length + questions[questionid].optionTwo.votes.length === 0) ? 50 : (questions[questionid].optionTwo.votes.length * 100 / (questions[questionid].optionOne.votes.length + questions[questionid].optionTwo.votes.length))} />
+              <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ m: 1}}>
+                { questions[questionid].optionTwo.votes.length + ' out of ' + (questions[questionid].optionOne.votes.length + questions[questionid].optionTwo.votes.length) + ' votes'}
+              </Typography>
               </Box>
       </Box>
       </Box>
