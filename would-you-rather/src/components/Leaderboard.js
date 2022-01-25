@@ -42,7 +42,8 @@ function Leaderboard() {
               color: '#FFFFFF',
             }}
           >
-              { Object.keys(allUsers).map( (uid) => (
+              { Object.keys(allUsers).map( (uid,urank) => (
+                
                 <Box
                 key={uid}
                 sx={{
@@ -56,6 +57,9 @@ function Leaderboard() {
                 }}
             >
             <Typography component="h2" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bold', marginRight: 4 }}>
+            <Typography component="p" color="black" fontSize="1rem" font='"Favorit", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;' sx={{ fontWeight: 'bolder', backgroundColor: '#FFFFFF', borderRadius: 10, display: 'inline', p: 1, m: 1 }}>
+                {(urank+1)}
+            </Typography>
                 {allUsers[uid].name}
             </Typography>
             <Divider></Divider>

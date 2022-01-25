@@ -31,8 +31,8 @@ function PollResults() {
     const questionid = params.question_id;
     const [answered, setAnswered] = useState( Object.keys(user.answers).includes(questionid));
     const [answer, setAnswer] = useState('optionOne');
-    console.log('Id = '+questionid);
-    console.log('Anwsered = '+answered);
+    // console.log('Id = '+questionid);
+    // console.log('Anwsered = '+answered);
     useEffect(() => {
         dispatch(getQuestions());
         dispatch(getUsers());
@@ -43,7 +43,7 @@ function PollResults() {
         } else {
             setAnswered(Object.keys(user.answers).includes(questionid));
         }
-      }, [user.name]);
+      }, [questionid, user.answers, user.name]);
     return ( 
         <ThemeProvider theme={theme}>
     { user.loggedin === false ? (

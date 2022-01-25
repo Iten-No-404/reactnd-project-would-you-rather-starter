@@ -48,7 +48,7 @@ const userSlice = createSlice({
     },
     extraReducers: {
       [logIn.fulfilled]: (state, { payload }) => {
-        console.log('Entered LogIn!');
+        // console.log('Entered LogIn!');
         // To sort users descendingly by sum of questions asked and answered:
         var usersHolder = {};
         Object.keys(payload).sort(function(a, b){
@@ -58,8 +58,8 @@ const userSlice = createSlice({
         });        
         state.allusers = usersHolder;
         var userData = payload[state.user.id];
-        console.log('User id ='+ state.user.id);
-        console.log(userData);
+        // console.log('User id ='+ state.user.id);
+        // console.log(userData);
         state.user.loggedin = true;
         state.user.name = userData.name;
         state.user.avatarURL = userData.avatarURL;

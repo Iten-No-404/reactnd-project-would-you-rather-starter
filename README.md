@@ -1,6 +1,21 @@
-# Would You Rather Project
+# Would You Rather ...
+To start the website follow the next simple steps:
+* Install all project dependencies by writing `npm install` in the terminal at the project directory.
+* Start the development server by writing `npm start` in the terminal.
+* Go to your favourite browser and type `http://localhost:3000/` in the address bar.
+* Browse through the questions asked by users and answer the ones you like.
+* Click on the Add Question tab in the navigation bar to ask your own questions.
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+## What You're Getting
+* 3 different users [for now] to log in as.
+* Ask a Would You Rather question and give two options the users would have to choose from.
+* View all the questions you have answered or haven't answered yet separately.
+* Answer questions and view the total number of votes and the percentages for each of the two choices.  
+* Compete with other users by asking and answering more questions.
+* View the leaderboards and find out your ranking.
+* Navigate and log out easily.
+
+# Detailed explanation of the fake database system used:
 
 The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
 
@@ -95,6 +110,6 @@ Your code will talk to the database via 4 methods:
 | qid | String | The id of the question that was answered|
 | answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
 
-## Contributing
+## Credit 
 
-This repository is the starter code for *all* Udacity students. Therefore, we most likely will not accept pull requests. For details, check out [CONTRIBUTING.md](https://github.com/udacity/reactnd-project-would-you-rather-starter/blob/master/CONTRIBUTING.md).
+This repository is my personal implementation to complete the starter code given by Udacity to _all_ students. I used it for the purpose of learning and advancing my React language skills and fulfilling the project requirement for the Would You Rather project which is a part of the Advanced Front-End Web Development Nanodegree Program given by Udacity in collaboration with itida.

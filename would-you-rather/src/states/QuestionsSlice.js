@@ -31,7 +31,7 @@ const questionsSlice = createSlice({
     },
     extraReducers: {
       [getQuestions.fulfilled]: (state, { payload }) => {
-        console.log('Entered getQuestions!');
+        // console.log('Entered getQuestions!');
         // To sort questions descendingly by timestamp:
         var questionsholder = {};
         Object.keys(payload).sort(function(a, b){
@@ -40,15 +40,15 @@ const questionsSlice = createSlice({
             questionsholder[key] = payload[key];
         });
         state.questions = questionsholder;
-        console.log(state.questions);
-        console.log(Object.keys(state.questions));
+        // console.log(state.questions);
+        // console.log(Object.keys(state.questions));
       },
       [saveQuestion.fulfilled]: (state, { payload }) => {
-        console.log('Entered saveQuestion!');
+        // console.log('Entered saveQuestion!');
         state.questionAddedid = payload.id;
       },
       [answerQuestion.fulfilled]: (state, { payload }) => {
-        console.log('Entered answerQuestion!');
+        // console.log('Entered answerQuestion!');
         state.answer = '';
       },
     }
