@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogInPrompt from './LogIn';
-import { logIn, selectUser, selectAllUsers } from '../states/UserSlice';
+import { getUsers, selectUser, selectAllUsers } from '../states/UserSlice';
 import { getQuestions, selectQuestions } from '../states/QuestionsSlice';
 const theme = createTheme();
 
@@ -24,7 +24,7 @@ function Home() {
     const questions = useSelector(selectQuestions);
     useEffect(() => {
       dispatch(getQuestions());
-      dispatch(logIn());
+      dispatch(getUsers());
     }, [dispatch]);
     useEffect(() => {
       if(user.loggedin === false){
@@ -63,7 +63,7 @@ function Home() {
           fullWidth
           >
             <Button
-                      disableRipple
+                       
                       variant="contained"
                       size="large"
                       font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
@@ -76,7 +76,7 @@ function Home() {
                       onClick={() => { setShowAnswered(false) }}
             >Unanswered Questions</Button>
             <Button
-                      disableRipple
+                       
                       variant="contained"
                       size="large"
                       font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
@@ -135,7 +135,7 @@ function Home() {
             <Link to={"/questions/"+questionid} style={{ textDecoration: 'none', width: '100%' }}>
         <Button
           fullWidth
-          disableRipple
+           
           variant="contained"
           size="large"
           font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"
@@ -201,7 +201,7 @@ function Home() {
             <Link to={"/questions/"+questionid} style={{ textDecoration: 'none', width: '100%' }}>
         <Button
           fullWidth
-          disableRipple
+           
           variant="contained"
           size="large"
           font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"

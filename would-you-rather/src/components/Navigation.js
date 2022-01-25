@@ -69,7 +69,7 @@ function Navigation() {
               </Typography>
               <img width="50" height="50" alt="avatar" src={user.avatarURL} ></img>
               <Button
-              disableRipple
+               
               variant="contained"
               size="large"
               font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"

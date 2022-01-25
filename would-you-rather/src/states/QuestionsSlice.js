@@ -1,10 +1,14 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { _getQuestions, _saveQuestionAnswer } from '../_DATA';
+import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from '../_DATA';
 
 export const getQuestions = createAsyncThunk(
   'questions',
   async () => _getQuestions()
+);
+
+export const saveQuestion = createAsyncThunk(
+  'save-question',
+  async (query) => _saveQuestion(query)
 );
 
 export const answerQuestion = createAsyncThunk(
@@ -18,16 +22,16 @@ const questionsSlice = createSlice({
       questions: {},
       status: 'loading',
       answer: '',
+      questionAddedid: '',
     },
     reducers: {
-    //   setId: (state, action) => {
-    //     state.user.id = action.payload;
-    //   },
+      resetAddedId: (state) => {
+        state.questionAddedid = '';
+      },
     },
     extraReducers: {
       [getQuestions.fulfilled]: (state, { payload }) => {
         console.log('Entered getQuestions!');
-        // state.questions = payload;
         // To sort questions descendingly by timestamp:
         var questionsholder = {};
         Object.keys(payload).sort(function(a, b){
@@ -39,6 +43,10 @@ const questionsSlice = createSlice({
         console.log(state.questions);
         console.log(Object.keys(state.questions));
       },
+      [saveQuestion.fulfilled]: (state, { payload }) => {
+        console.log('Entered saveQuestion!');
+        state.questionAddedid = payload.id;
+      },
       [answerQuestion.fulfilled]: (state, { payload }) => {
         console.log('Entered answerQuestion!');
         state.answer = '';
@@ -46,9 +54,11 @@ const questionsSlice = createSlice({
     }
 });
 
-//   export const { setId, logOut } = questionsSlice.actions;
-  
-  export const selectQuestions = (state) => state.questions.questions;
-  
-  export default questionsSlice.reducer;
+export const { resetAddedId } = questionsSlice.actions;
+
+export const selectQuestions = (state) => state.questions.questions;
+
+export const selectAddedQuestionId = (state) => state.questions.questionAddedid;
+
+export default questionsSlice.reducer;
   

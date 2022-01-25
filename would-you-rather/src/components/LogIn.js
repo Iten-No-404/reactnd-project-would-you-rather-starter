@@ -79,7 +79,7 @@ function LogInPrompt() {
             </Box>
             <Button
                 fullWidth
-                disableRipple
+                 
                 variant="contained"
                 size="large"
                 font="'Favorit', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;"

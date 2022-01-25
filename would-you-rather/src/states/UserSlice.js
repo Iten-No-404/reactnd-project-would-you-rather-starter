@@ -1,9 +1,12 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { _getUsers } from '../_DATA';
 
 export const logIn = createAsyncThunk(
   'login',
+  async () => _getUsers()
+);
+export const getUsers = createAsyncThunk(
+  'getUsers',
   async () => _getUsers()
 );
 
@@ -62,6 +65,16 @@ const userSlice = createSlice({
         state.user.avatarURL = userData.avatarURL;
         state.user.questions = userData.questions;
         state.user.answers = userData.answers;
+      },
+      [getUsers.fulfilled]: (state, { payload }) => {
+        // To sort users descendingly by sum of questions asked and answered:
+        var usersHolder = {};
+        Object.keys(payload).sort(function(a, b){
+            return (payload[b].questions.length + Object.keys(payload[b].answers).length) - (payload[a].questions.length + Object.keys(payload[a].answers).length);
+        }).forEach(function(key) {
+            usersHolder[key] = payload[key];
+        });        
+        state.allusers = usersHolder;
       },
     }
 });
